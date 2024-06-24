@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
+	"time"
 )
 
 // Session is a struct that holds the session information for the BMC
@@ -49,7 +50,7 @@ func NewApi(opts ...func(*ApiOptions)) *Api {
 
 	return &Api{
 		sessions:   make(map[string]*Session),
-		httpClient: &http.Client{Transport: tr},
+		httpClient: &http.Client{Transport: tr, Timeout: time.Second * 30},
 		options:    options,
 	}
 }

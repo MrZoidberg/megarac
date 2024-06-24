@@ -176,6 +176,68 @@ func main() {
 					},
 				},
 			},
+			{
+				Name:  "sensors",
+				Usage: "sensor management",
+				Flags: []cli.Flag{
+					&cli.StringFlag{
+						Name:     "profile",
+						Usage:    "BMC profile name",
+						Aliases:  []string{"n"},
+						Required: false,
+					},
+					&cli.StringFlag{
+						Name:     "host",
+						Usage:    "BMC hostname or IP address",
+						Aliases:  []string{"o"},
+						Required: false,
+					},
+					&cli.StringFlag{
+						Name:     "user",
+						Usage:    "BMC username",
+						Required: false,
+						Aliases:  []string{"u"},
+					},
+					&cli.StringFlag{
+						Name:     "password",
+						Usage:    "BMC password",
+						Required: false,
+						Aliases:  []string{"p"},
+					},
+					&cli.BoolFlag{
+						Name:     "use-ssl",
+						Usage:    "use ssl for connection",
+						Value:    true,
+						Required: false,
+					},
+					&cli.BoolFlag{
+						Name:     "insecure",
+						Usage:    "skip ssl verification",
+						Required: false,
+					},
+				},
+				Subcommands: []*cli.Command{
+					{
+						Name:   "list",
+						Usage:  "list sensors",
+						Action: cmd.Command(cmd.SensorList),
+						Flags: []cli.Flag{
+							&cli.BoolFlag{
+								Name:     "all",
+								Usage:    "show all sensors, including inactive and inaccessible",
+								Required: false,
+								Aliases:  []string{"a"},
+							},
+							&cli.BoolFlag{
+								Name:     "find",
+								Usage:    "find a sensor by name",
+								Required: false,
+								Aliases:  []string{"f"},
+							},
+						},
+					},
+				},
+			},
 		},
 	}
 
