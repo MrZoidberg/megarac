@@ -16,11 +16,43 @@ Megarac provides a simple CLI to manage BMC operations. You can specify BMC deta
 
 ### Global options
 
-`--use-ssl`: Use SSL to connect to the BMC. Default is true.
-
-`--insecure`: Skip SSL certificate verification. Default is false.
-
 `--help`, `-h`: Show help.
+
+### Commands
+
+#### `configure`
+
+Configure the profile with the BMC authentication details.
+Profiles are stored in the user's home directory in the `.megarac/profiles` directory.
+
+Add/update profile:
+`megarac configure add --name [profile_name] --host [hostname] --user [username] --password [password] [--insecure] [--use-ssl false]`
+
+List profiles:
+`megarac configure list`
+
+Remove profile:
+`megarac configure remove --name [profile_name]`
+
+#### `power`
+
+Control the power state of the server.
+
+Power on:
+`megarac power on [--profile profile_name]` or `megarac power on --host [hostname] --user [username] --password [password] [--insecure] [--use-ssl false]`
+
+Power off:
+`megarac power off [--profile profile_name]` or `megarac power off --host [hostname] --user [username] --password [password] [--insecure] [--use-ssl false]`
+
+Power status:
+`megarac power status [--profile profile_name]` or `megarac power status --host [hostname] --user [username] --password [password] [--insecure] [--use-ssl false]`
+
+#### `sensors`
+
+Get sensor readings from the BMC.
+
+List sensors:
+`megarac sensors list [--profile profile_name] [-all] [--find name]` or `megarac sensors list --host [hostname] --user [username] --password [password] [--insecure] [--use-ssl false] [-all] [--find name]`
 
 ## Contributing
 
