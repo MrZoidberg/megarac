@@ -19,11 +19,12 @@ jobs:
         with:
           go-version: "1.22"
 
-      - name: import gpg key
-        run: |
-            echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --import
-        env:
-            GPG_TTY: $(tty)
+      -
+        name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+            gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+            passphrase: ${{ secrets.PASSPHRASE }}
 
       - name: run goreleaser
         uses: goreleaser/goreleaser-action@v5
