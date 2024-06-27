@@ -18,8 +18,8 @@ before:
 project_name: megarac
 dist: .bin
 
-# signs:
-#   - artifacts: checksum
+signs:
+  - artifacts: checksum
 
 builds:
   - binary: "megarac"

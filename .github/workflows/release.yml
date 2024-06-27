@@ -19,6 +19,12 @@ jobs:
         with:
           go-version: "1.22"
 
+      - name: import gpg key
+        run: |
+            echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --import
+        env:
+            GPG_TTY: $(tty)
+
       - name: run goreleaser
         uses: goreleaser/goreleaser-action@v5
         with:
@@ -28,3 +34,4 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GORELEASER_GITHUB_TOKEN }}
+          GPG_KEY_ID: "71FEEDB877EC18B5"
