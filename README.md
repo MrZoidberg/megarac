@@ -54,6 +54,11 @@ Get sensor readings from the BMC.
 List sensors:
 `megarac sensors list [--profile profile_name] [-all] [--find name]` or `megarac sensors list --host [hostname] --user [username] --password [password] [--insecure] [--use-ssl false] [-all] [--find name]`
 
+### Output format
+
+By default, Megarac outputs data in a human-readable format. You can use the `--format json` flag to output data in JSON format.
+Please note that any errors or warnings will be displayed in the human-readable format.
+
 ## Contributing
 
 Contributions to Megarac are welcome! Please refer to the CONTRIBUTING.md file for guidelines on how to contribute to this project.
