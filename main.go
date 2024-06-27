@@ -24,6 +24,12 @@ func main() {
 	app := &cli.App{
 		Name:  "megarac",
 		Usage: "cli tool for managing MegaRAC BMCs",
+		Authors: []*cli.Author{
+			{
+				Name:  "Mykhaylo Merkulov",
+				Email: "mihail.merkulov@gmail.com",
+			},
+		},
 		Action: func(cCtx *cli.Context) error {
 			return cli.ShowAppHelp(cCtx)
 		},
@@ -265,6 +271,9 @@ func main() {
 					return nil
 				},
 			},
+		},
+		After: func(c *cli.Context) error {
+			return config.Cfg.Save()
 		},
 	}
 

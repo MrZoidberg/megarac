@@ -82,7 +82,7 @@ func (a *Api) Login(host string, user string, password string) (*Session, error)
 		// parse set-cookie header, extract QSESSIONID
 		for _, cookie := range resp.Cookies() {
 			if cookie.Name == "QSESSIONID" {
-				session.QSESSIONID = cookie.Value
+				session.QSessionID = cookie.Value
 			}
 		}
 

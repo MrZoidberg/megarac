@@ -19,7 +19,7 @@ type Session struct {
 	CSRFToken  string
 
 	// cookies
-	QSESSIONID string
+	QSessionID string
 }
 
 // ApiOptions is a struct that holds the options for the API
@@ -84,7 +84,7 @@ func (a *Api) postRequest(host string, path string, data string) (*http.Response
 	}
 	apiReq.Header.Add("Content-Type", "application/json")
 	apiReq.Header.Add("X-CSRFTOKEN", session.CSRFToken)
-	apiReq.Header.Add("Cookie", "QSESSIONID="+session.QSESSIONID)
+	apiReq.Header.Add("Cookie", "QSESSIONID="+session.QSessionID)
 
 	resp, err := a.httpClient.Do(apiReq)
 	if err != nil {
@@ -116,7 +116,7 @@ func (a *Api) getRequest(host string, path string) (*http.Response, error) {
 	}
 	apiReq.Header.Add("Content-Type", "application/json")
 	apiReq.Header.Add("X-CSRFTOKEN", session.CSRFToken)
-	apiReq.Header.Add("Cookie", "QSESSIONID="+session.QSESSIONID)
+	apiReq.Header.Add("Cookie", "QSESSIONID="+session.QSessionID)
 
 	resp, err := a.httpClient.Do(apiReq)
 	if err != nil {
