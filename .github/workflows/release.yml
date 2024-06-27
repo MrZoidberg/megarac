@@ -27,7 +27,7 @@ jobs:
             passphrase: ${{ secrets.PASSPHRASE }}
 
       - name: run goreleaser
-        uses: goreleaser/goreleaser-action@v5
+        uses: goreleaser/goreleaser-action@v6
         with:
           distribution: goreleaser
           # 'latest', 'nightly', or a semver
