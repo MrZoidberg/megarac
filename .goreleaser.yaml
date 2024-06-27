@@ -18,8 +18,8 @@ before:
 project_name: megarac
 dist: .bin
 
-signs:
-  - artifacts: checksum
+# signs:
+#   - artifacts: checksum
 
 builds:
   - binary: "megarac"
@@ -74,10 +74,10 @@ nfpms:
   - id: spot
     package_name: spot
     file_name_template: "{{.ProjectName}}_{{.Tag}}_{{.Os}}_{{.Arch}}"
-    vendor: Umputun
-    homepage: https://simplotask.com
-    maintainer: Umputun <umputun@gmail.com>
-    description: A collection of tools for the effortless deployment, configuration, and management of secrets
+    vendor: MrZoidberg
+    homepage: https://github.com/MrZoidberg/megarac
+    maintainer: MrZoidberg <mihail.merkulov@gmail.com>
+    description: "Megarac is a tool for managing Megarac BMCs"
     license: MIT
     formats:
       - deb
