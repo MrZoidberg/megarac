@@ -37,10 +37,8 @@ type Api struct {
 
 func NewApi(opts ...func(*ApiOptions)) *Api {
 	var options = &ApiOptions{}
-	if opts != nil {
-		for _, opt := range opts {
-			opt(options)
-		}
+	for _, opt := range opts {
+		opt(options)
 	}
 
 	tr := &http.Transport{}
@@ -60,7 +58,7 @@ func (a *Api) saveSession(host string, session *Session) {
 }
 
 func (a *Api) getSession(host string) *Session {
-	session, _ := a.sessions[host]
+	session := a.sessions[host]
 	return session
 }
 

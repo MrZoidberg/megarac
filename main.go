@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/MrZoidberg/megarac/cmd"
+	"github.com/MrZoidberg/megarac/config"
 	"github.com/MrZoidberg/megarac/lgr"
 	"github.com/urfave/cli/v2"
 )
@@ -15,13 +16,16 @@ var revision = "latest"
 func main() {
 
 	lgr.SetupLog()
+	err := config.Load()
+	if err != nil {
+		log.Fatalf("Failed to load configuration: %v", err)
+	}
 
 	app := &cli.App{
 		Name:  "megarac",
 		Usage: "cli tool for managing MegaRAC BMCs",
 		Action: func(cCtx *cli.Context) error {
-			cli.ShowAppHelp(cCtx)
-			return nil
+			return cli.ShowAppHelp(cCtx)
 		},
 		Commands: []*cli.Command{
 			{

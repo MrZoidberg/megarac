@@ -26,9 +26,9 @@ func newConfig() *Config {
 
 var Cfg *Config
 
-func init() {
+func Load() error {
 	Cfg = newConfig()
-	Cfg.Load()
+	return Cfg.Load()
 }
 
 func (c *Config) AddProfile(profile *Profile) {
