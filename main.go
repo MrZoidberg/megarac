@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -8,6 +9,8 @@ import (
 	"github.com/MrZoidberg/megarac/lgr"
 	"github.com/urfave/cli/v2"
 )
+
+var revision = "latest"
 
 func main() {
 
@@ -236,6 +239,14 @@ func main() {
 							},
 						},
 					},
+				},
+			},
+			{
+				Name:  "version",
+				Usage: "show version",
+				Action: func(c *cli.Context) error {
+					fmt.Printf("megarac version %s\n", revision)
+					return nil
 				},
 			},
 		},
