@@ -50,3 +50,17 @@ func getProfile(c *cli.Context) (*config.Profile, error) {
 
 	return profile, nil
 }
+
+type OutputFormat string
+
+const (
+	OutputFormatText OutputFormat = "text"
+	OutputFormatJSON OutputFormat = "json"
+)
+
+func getOutputFormat(c *cli.Context) OutputFormat {
+	if c.IsSet("format") {
+		return OutputFormat(c.String("format"))
+	}
+	return OutputFormatText
+}

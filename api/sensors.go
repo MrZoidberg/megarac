@@ -30,20 +30,20 @@ type sensorJson struct {
 }
 
 type Sensor struct {
-	ID                           int
-	SensorNumber                 int
-	Name                         string
-	Reading                      string
-	Unit                         string
-	Type                         string
-	State                        string
-	Accessible                   string
-	LowerNonRecoverableThreshold string
-	LowerCriticalThreshold       string
-	LowerNonCriticalThreshold    string
-	HigherNonCriticalThreshold   string
-	HigherCriticalThreshold      string
-	Alert                        string
+	ID                           int    `json:"id"`
+	SensorNumber                 int    `json:"sensor_number"`
+	Name                         string `json:"name"`
+	Reading                      string `json:"reading"`
+	Unit                         string `json:"unit"`
+	Type                         string `json:"type"`
+	State                        string `json:"state"`
+	Accessible                   string `json:"accessible"`
+	LowerNonRecoverableThreshold string `json:"lower_non_recoverable_threshold"`
+	LowerCriticalThreshold       string `json:"lower_critical_threshold"`
+	LowerNonCriticalThreshold    string `json:"lower_non_critical_threshold"`
+	HigherNonCriticalThreshold   string `json:"higher_non_critical_threshold"`
+	HigherCriticalThreshold      string `json:"higher_critical_threshold"`
+	Alert                        string `json:"alert"`
 }
 
 // GetSensorsList returns a list of sensors from the BMC

@@ -146,6 +146,12 @@ func main() {
 						Usage:    "skip ssl verification",
 						Required: false,
 					},
+					&cli.StringFlag{
+						Name:     "format",
+						Usage:    "output format: text or json",
+						Value:    "text",
+						Required: false,
+					},
 				},
 				Subcommands: []*cli.Command{
 					{
@@ -222,6 +228,12 @@ func main() {
 						Usage:    "skip ssl verification",
 						Required: false,
 					},
+					&cli.StringFlag{
+						Name:     "format",
+						Usage:    "output format: text or json",
+						Value:    "text",
+						Required: false,
+					},
 				},
 				Subcommands: []*cli.Command{
 					{
@@ -235,7 +247,7 @@ func main() {
 								Required: false,
 								Aliases:  []string{"a"},
 							},
-							&cli.BoolFlag{
+							&cli.StringFlag{
 								Name:     "find",
 								Usage:    "find a sensor by name",
 								Required: false,
