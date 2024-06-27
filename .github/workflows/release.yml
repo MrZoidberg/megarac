@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: check out code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: set up go
         uses: actions/setup-go@v5
@@ -20,7 +22,9 @@ jobs:
       - name: run goreleaser
         uses: goreleaser/goreleaser-action@v5
         with:
-          version: latest
+          distribution: goreleaser
+          # 'latest', 'nightly', or a semver
+          version: '~> v2'
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GORELEASER_GITHUB_TOKEN }}
