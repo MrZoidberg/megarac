@@ -6,7 +6,15 @@ Please note that Megarac is an independent project and is not affiliated with or
 
 ## Installation
 
-See [Releases page](https://github.com/MrZoidberg/megarac).
+See [Releases page](https://github.com/MrZoidberg/megarac/releases).
+
+## Verified BMCs
+
+Megarac has been tested with the following motherboards:
+
+- Gigabyte MZ31-AR0
+
+Please write an [issue](https://github.com/MrZoidberg/megarac/issues) if you have tested Megarac with a different motherboard and it works.
 
 ## Usage
 
