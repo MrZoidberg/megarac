@@ -6,6 +6,7 @@ import (
 
 	"github.com/MrZoidberg/megarac/api"
 	"github.com/MrZoidberg/megarac/lgr"
+	"github.com/fatih/color"
 	"github.com/urfave/cli/v2"
 )
 
@@ -42,7 +43,7 @@ func PowerOn(c *cli.Context) error {
 	}
 
 	if format == OutputFormatText {
-		lgr.Logger.Logf("[INFO] Server %s is powering on", profile.Host)
+		lgr.Logger.Logf("[INFO] Server %s is powering %s", profile.Host, lgr.ColorFormat(color.FgGreen, "on"))
 	} else {
 		result := map[string]interface{}{
 			"host": profile.Host,
@@ -94,7 +95,7 @@ func PowerOff(c *cli.Context) error {
 	}
 
 	if format == OutputFormatText {
-		lgr.Logger.Logf("[INFO] Server %s is powering off", profile.Host)
+		lgr.Logger.Logf("[INFO] Server %s is powering %s", profile.Host, lgr.ColorFormat(color.FgRed, "off"))
 	} else {
 		result := map[string]interface{}{
 			"host": profile.Host,
@@ -152,7 +153,13 @@ func PowerStatus(c *cli.Context) error {
 	}
 
 	if format == OutputFormatText {
-		lgr.Logger.Logf("[INFO] Power status for %s: %v", profile.Host, powerStatus)
+		powerStatusStr := ""
+		if powerStatus == "on" {
+			powerStatusStr = lgr.ColorFormat(color.FgGreen, powerStatus)
+		} else {
+			powerStatusStr = lgr.ColorFormat(color.FgRed, powerStatus)
+		}
+		lgr.Logger.Logf("[INFO] Power status for %s: %v", profile.Host, powerStatusStr)
 	} else {
 		result := map[string]interface{}{
 			"host": profile.Host,

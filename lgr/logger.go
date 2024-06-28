@@ -9,6 +9,7 @@ import (
 
 var Logger lgr.L
 
+// SetupLog sets up logger
 func SetupLog() {
 	logOpts := []lgr.Option{lgr.Format("{{.Message}}")} // default to discard
 	dbg := os.Getenv("DEBUG") == "true"
@@ -28,4 +29,9 @@ func SetupLog() {
 	lgr.Setup(logOpts...)
 
 	Logger = lgr.Std
+}
+
+// ColorFormat returns formatted string with color
+func ColorFormat(clr color.Attribute, format string, args ...interface{}) string {
+	return color.New(clr).Sprintf(format, args...)
 }

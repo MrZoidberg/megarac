@@ -8,6 +8,7 @@ import (
 
 	"github.com/MrZoidberg/megarac/api"
 	"github.com/MrZoidberg/megarac/lgr"
+	"github.com/fatih/color"
 	"github.com/urfave/cli/v2"
 )
 
@@ -61,12 +62,14 @@ func SensorList(c *cli.Context) error {
 			if !showAll && sensor.State == "inactive" || sensor.Accessible == "inaccessible" {
 				continue
 			}
+
 			if find && !strings.Contains(sensor.Name, find_str) {
 				continue
 			}
 
 			fmt.Fprintf(w, "%d\t%s\t%s\t%s %s\t%s\t%s\n", sensor.ID, sensor.Name, sensor.Type,
-				sensor.Reading, sensor.Unit, sensor.Alert, sensor.State)
+				colorizeReading(sensor.Reading, sensor.Alert, sensor.State), sensor.Unit,
+				colorizeAlert(sensor.Alert), colorizeState(sensor.State))
 		}
 		w.Flush()
 
@@ -93,4 +96,36 @@ func SensorList(c *cli.Context) error {
 		lgr.Logger.Logf("%v", string(output))
 	}
 	return nil
+}
+
+func colorizeAlert(alert string) string {
+	if len(alert) > 0 {
+		return lgr.ColorFormat(color.FgRed, alert)
+	}
+	return "\t"
+}
+
+func colorizeReading(reading string, alert string, state string) string {
+	if len(alert) > 0 {
+		return lgr.ColorFormat(color.FgRed, reading)
+	}
+	switch state {
+	case "inactive":
+		return lgr.ColorFormat(color.FgWhite, reading)
+	case "active":
+		return lgr.ColorFormat(color.FgGreen, reading)
+	default:
+		return reading
+	}
+}
+
+func colorizeState(state string) string {
+	switch state {
+	case "inactive":
+		return lgr.ColorFormat(color.FgRed, state)
+	case "active":
+		return lgr.ColorFormat(color.FgGreen, state)
+	default:
+		return state
+	}
 }
