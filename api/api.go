@@ -62,6 +62,10 @@ func (a *Api) getSession(host string) *Session {
 	return session
 }
 
+func (a *Api) deleteSession(host string) {
+	delete(a.sessions, host)
+}
+
 func (a *Api) postRequest(host string, path string, data string) (*http.Response, error) {
 	// get session
 	session := a.getSession(host)

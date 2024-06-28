@@ -29,6 +29,13 @@ func PowerOn(c *cli.Context) error {
 		return cli.Exit(fmt.Sprintf("FAIL: Failed to login to BMC host %s: %v", profile.Host, err), 1)
 	}
 
+	defer func() {
+		err = srv.Logout(profile.Host)
+		if err != nil {
+			lgr.Logger.Logf("[WARN] Failed to logout from BMC host %s: %v", profile.Host, err)
+		}
+	}()
+
 	err = srv.PowerOn(profile.Host)
 	if err != nil {
 		return cli.Exit(fmt.Sprintf("FAIL: Failed to power on BMC host %s: %v", profile.Host, err), 1)
@@ -74,6 +81,13 @@ func PowerOff(c *cli.Context) error {
 		return cli.Exit(fmt.Sprintf("FAIL: Failed to login to BMC host %s: %v", profile.Host, err), 1)
 	}
 
+	defer func() {
+		err = srv.Logout(profile.Host)
+		if err != nil {
+			lgr.Logger.Logf("[WARN] Failed to logout from BMC host %s: %v", profile.Host, err)
+		}
+	}()
+
 	err = srv.PowerOff(profile.Host)
 	if err != nil {
 		return cli.Exit(fmt.Sprintf("FAIL: Failed to power off BMC host %s: %v", profile.Host, err), 1)
@@ -118,6 +132,13 @@ func PowerStatus(c *cli.Context) error {
 	if err != nil {
 		return cli.Exit(fmt.Sprintf("FAIL: Failed to login to BMC host %s: %v", profile.Host, err), 1)
 	}
+
+	defer func() {
+		err = srv.Logout(profile.Host)
+		if err != nil {
+			lgr.Logger.Logf("[WARN] Failed to logout from BMC host %s: %v", profile.Host, err)
+		}
+	}()
 
 	status, err := srv.ChassisStatus(profile.Host)
 	if err != nil {

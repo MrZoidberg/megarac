@@ -96,3 +96,53 @@ func (a *Api) Login(host string, user string, password string) (*Session, error)
 
 	return nil, &BMCAPIError{StatusCode: resp.StatusCode, Message: "failed to login"}
 }
+
+// Logout makes a request to the BMC to logout the user
+func (a *Api) Logout(host string) error {
+	/*
+		curl 'https://endor-bmc.lan/api/session' -X DELETE -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:128.0) Gecko/20100101 Firefox/128.0' -H 'Accept: application/json, text/javascript, */ /*; q=0.01' -H 'Accept-Language: en-US,en;q=0.5' -H 'Accept-Encoding: gzip, deflate, br, zstd' -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -H 'X-CSRFTOKEN: null' -H 'X-Requested-With: XMLHttpRequest' -H 'Origin: https://endor-bmc.lan' -H 'Connection: keep-alive' -H 'Referer: https://endor-bmc.lan/' -H 'Cookie: lang=en-us; i18next=en-us' -H 'Sec-Fetch-Dest: empty' -H 'Sec-Fetch-Mode: cors' -H 'Sec-Fetch-Site: same-origin' -H 'Priority: u=0' --data-raw ''
+	 */
+
+	// get session
+	session := a.getSession(host)
+	if session == nil {
+		return &NoSessionError{"no session found"}
+	}
+
+	// call api
+	var domain string
+	if a.options.UseSsl {
+		domain = "https://" + host
+	} else {
+		domain = "http://" + host
+	}
+	resource := "/api/session"
+
+	u, _ := url.ParseRequestURI(domain)
+	u.Path = resource
+	urlStr := u.String()
+
+	r, err := http.NewRequest(http.MethodDelete, urlStr, nil)
+	r.Header.Add("X-CSRFTOKEN", session.CSRFToken)
+	r.Header.Add("Cookie", "QSESSIONID="+session.QSessionID)
+
+	if err != nil {
+		return fmt.Errorf("failed to logout: %v", err)
+	}
+
+	resp, err := a.httpClient.Do(r)
+	if err != nil {
+		return fmt.Errorf("failed to logout: %v", err)
+	}
+
+	defer resp.Body.Close()
+	switch resp.StatusCode {
+	case 200:
+		// success
+		// remove session from cache
+		a.deleteSession(host)
+		return nil
+	}
+
+	return &BMCAPIError{StatusCode: resp.StatusCode, Message: "failed to logout"}
+}
