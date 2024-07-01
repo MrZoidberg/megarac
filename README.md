@@ -6,7 +6,9 @@ Please note that Megarac is an independent project and is not affiliated with or
 
 ## Installation
 
-See [Releases page](https://github.com/MrZoidberg/megarac/releases).
+1. Download package for your system from [Releases page](https://github.com/MrZoidberg/megarac/releases).
+
+1. If you have Go installed, run `go install github.com/MrZoidberg/megarac@latest` to install Megarac. Make sure `~/go/bin/` is in your `PATH`.
 
 ## Verified BMCs
 
