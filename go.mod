@@ -5,7 +5,7 @@ go 1.22.4
 require (
 	github.com/fatih/color v1.17.0
 	github.com/go-pkgz/lgr v0.11.1
-	github.com/urfave/cli/v2 v2.27.3
+	github.com/urfave/cli/v2 v2.27.4
 )
 
 require (
